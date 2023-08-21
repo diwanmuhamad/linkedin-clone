@@ -1,7 +1,7 @@
-import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
-import { Post } from '@/types';
-import { FontAwesome } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import { Post } from "@/types";
+import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 type PostListItemProps = {
   post: Post;
@@ -9,14 +9,14 @@ type PostListItemProps = {
 
 type FooterButtonProp = {
   text: string;
-  icon: React.ComponentProps<typeof FontAwesome>['name'];
+  icon: React.ComponentProps<typeof FontAwesome>["name"];
 };
 
 function FooterButton({ text, icon }: FooterButtonProp) {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: "row" }}>
       <FontAwesome name={icon} size={16} color="gray" />
-      <Text style={{ marginLeft: 5, color: 'gray', fontWeight: '500' }}>
+      <Text style={{ marginLeft: 5, color: "gray", fontWeight: "500" }}>
         {text}
       </Text>
     </View>
@@ -25,57 +25,57 @@ function FooterButton({ text, icon }: FooterButtonProp) {
 
 export default function PostListItem({ post }: PostListItemProps) {
   return (
-    <Link href={`/posts/${post.id}`} asChild>
-      <Pressable style={styles.container}>
-        {/* Header */}
-        <Link href={`/users/${post.author.id}`} asChild>
-          <Pressable style={styles.header}>
-            <Image
-              source={{ uri: post.author.image }}
-              style={styles.userImage}
-            />
-            <View>
-              <Text style={styles.userName}>{post.author.name}</Text>
-              <Text>{post.author.position}</Text>
-            </View>
-          </Pressable>
-        </Link>
+    <Pressable style={styles.container}>
+      {/* Header */}
+      {/*@ts-ignore*/}
+      <Link href={`/users/${post.author.id}`} asChild>
+        <Pressable style={styles.header}>
+          <Image source={{ uri: post.author.image }} style={styles.userImage} />
+          <View>
+            <Text style={styles.userName}>{post.author.name}</Text>
+            <Text>{post.author.position}</Text>
+          </View>
+        </Pressable>
+      </Link>
+      {/*@ts-ignore*/}
+      <Link href={`/posts/${post.id}`} asChild>
+        <Pressable>
+          {/* Text content */}
+          <Text style={styles.content}>{post.content}</Text>
 
-        {/* Text content */}
-        <Text style={styles.content}>{post.content}</Text>
+          {/* Image content */}
+          {post.image && (
+            <Image source={{ uri: post.image }} style={styles.postImage} />
+          )}
+        </Pressable>
+      </Link>
 
-        {/* Image content */}
-        {post.image && (
-          <Image source={{ uri: post.image }} style={styles.postImage} />
-        )}
-
-        {/* Footer */}
-        <View style={styles.footer}>
-          <FooterButton text="Like" icon="thumbs-o-up" />
-          <FooterButton text="Comment" icon="comment-o" />
-          <FooterButton text="Share" icon="share" />
-        </View>
-      </Pressable>
-    </Link>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <FooterButton text="Like" icon="thumbs-o-up" />
+        <FooterButton text="Comment" icon="comment-o" />
+        <FooterButton text="Share" icon="share" />
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    width: '100%',
+    backgroundColor: "white",
+    width: "100%",
     maxWidth: 500,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   // Header
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
   },
   userName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
     marginBottom: 5,
   },
@@ -92,16 +92,16 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   postImage: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1,
   },
 
   // footer
   footer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: 10,
-    justifyContent: 'space-around',
+    justifyContent: "space-around",
     borderTopWidth: 0.5,
-    borderColor: 'lightgray',
+    borderColor: "lightgray",
   },
 });
